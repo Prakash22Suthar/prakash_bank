@@ -1,5 +1,5 @@
 """
-WSGI config for r_bank project.
+WSGI config for prakash_bank project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'r_bank.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'prakash_bank.settings')
 
 application = get_wsgi_application()
