@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "8718a6cc-f403-4c2b-8239-dbd8d02f38f4",
+		"name": "Prakash_bank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34294366"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response_jsonData = pm.response.json()\r",
+									"pm.environment.set(\"token\",response_jsonData.data.access)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // super admin login\r\n    \"email\":\"admin@mail.com\",\r\n    \"password\":\"admin\"\r\n\r\n    //branch manager login\r\n    // \"email\":\"prakashsuthar@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n\r\n    // staff user login\r\n    // \"email\":\"staffuser1@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n    \r\n    // customer login\r\n    // \"email\":\"demo@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response_jsonData = pm.response.json()\r",
+									"pm.environment.set(\"token\",response_jsonData.data.access)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMzE4MjQ2MSwiaWF0IjoxNzIzMDk2MDYxLCJqdGkiOiI1ODE4NzgyYTk2MjU0MjViODQwYTBjMzY4OGVhODUyMiIsInVzZXJfaWQiOjJ9.vnkI5mlY2qkk8we4USgXMitkhTY4wWt5oizxh-NtzdA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response_jsonData = pm.response.json()\r",
+									"pm.environment.set(\"token\",response_jsonData.data.access)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMDk3NjA3LCJpYXQiOjE3MjMwOTczMDcsImp0aSI6ImI4ZWJmNzc2NjcxNjRhNDZhYzY5NGM4OWQzNGQxODA1IiwidXNlcl9pZCI6MX0.6qVb3c8of4yGffEcwfxyEsg67qa-dmgcvebK828UQYE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/verify-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user_list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"prakash \",\r\n    \"last_name\": \"suthar\",\r\n    \"username\": \"prakashsuthar2\",\r\n    \"email\": \"prakashsuthar1@yopmail.com\",\r\n    \"password\": \"demo@123\",\r\n    \"dob\": null,\r\n    \"address\": null,\r\n    \"is_kyc\": false,\r\n    \"role\":\"bm\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"admin\",\r\n    \"last_name\": \"kumar\",\r\n    \"username\": \"admin\",\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin\",\r\n    \"dob\": null,\r\n    \"address\": null,\r\n    \"is_kyc\": false,\r\n    \"is_deleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/1/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_changePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"admin\",\r\n    \"new_password1\": \"admin2\",\r\n    \"new_password2\":\"admin2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/1/change-password/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"1",
+								"change-password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_list Copy 2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "account_list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}account/",
+							"host": [
+								"{{url}}account"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "4474001500000002",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "-created_at",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "account_history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}account/3/transaction-history",
+							"host": [
+								"{{url}}account"
+							],
+							"path": [
+								"3",
+								"transaction-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "account_create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\":\"s\",\r\n    \"initial_balance\":100.0,\r\n    \"account_holder\":{\r\n        \"first_name\": \"demo\",\r\n        \"last_name\": \"kumar\",\r\n        \"username\": \"demo\",\r\n        \"email\": \"demo@yopmail.com\",\r\n        \"password\": \"demo@123\",\r\n        \"dob\": null,\r\n        \"address\": null,\r\n        \"is_kyc\": false,\r\n        \"is_deleted\": false\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/account/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"account",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "transaction_list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/transaction/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transaction",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction_create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"t_account\": 3,\r\n    // \"transaction_id\": \"7466551598\",\r\n    \"type\": \"c\",\r\n    \"amount\": 100.0,\r\n    \"location\": \"Home Branch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/transaction/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transaction",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

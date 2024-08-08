@@ -1,0 +1,382 @@
+openapi: 3.0.3
+info:
+  title: Prakash_bank
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: '{{url}}'
+  - url: '{{url}}account'
+paths:
+  /login:
+    post:
+      tags:
+        - Login
+      summary: login
+      description: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            examples:
+              login:
+                value: "{\r\n    // super admin login\r\n    \"email\":\"admin@mail.com\",\r\n    \"password\":\"admin\"\r\n\r\n    //branch manager login\r\n    // \"email\":\"prakashsuthar@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n\r\n    // staff user login\r\n    // \"email\":\"staffuser1@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n    \r\n    // customer login\r\n    // \"email\":\"demo@yopmail.com\",\r\n    // \"password\":\"demo@123\"\r\n\r\n}"
+      responses:
+        '200':
+          description: ''
+  /refresh:
+    post:
+      tags:
+        - Login
+      summary: refresh_token
+      description: refresh_token
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refresh:
+                  type: string
+                  example: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMzE4MjQ2MSwiaWF0IjoxNzIzMDk2MDYxLCJqdGkiOiI1ODE4NzgyYTk2MjU0MjViODQwYTBjMzY4OGVhODUyMiIsInVzZXJfaWQiOjJ9.vnkI5mlY2qkk8we4USgXMitkhTY4wWt5oizxh-NtzdA
+            examples:
+              refresh_token:
+                value:
+                  refresh: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMzE4MjQ2MSwiaWF0IjoxNzIzMDk2MDYxLCJqdGkiOiI1ODE4NzgyYTk2MjU0MjViODQwYTBjMzY4OGVhODUyMiIsInVzZXJfaWQiOjJ9.vnkI5mlY2qkk8we4USgXMitkhTY4wWt5oizxh-NtzdA
+      responses:
+        '200':
+          description: ''
+  /verify-token:
+    post:
+      tags:
+        - Login
+      summary: verify-token
+      description: verify-token
+      operationId: verifyToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMDk3NjA3LCJpYXQiOjE3MjMwOTczMDcsImp0aSI6ImI4ZWJmNzc2NjcxNjRhNDZhYzY5NGM4OWQzNGQxODA1IiwidXNlcl9pZCI6MX0.6qVb3c8of4yGffEcwfxyEsg67qa-dmgcvebK828UQYE
+            examples:
+              verify-token:
+                value:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIzMDk3NjA3LCJpYXQiOjE3MjMwOTczMDcsImp0aSI6ImI4ZWJmNzc2NjcxNjRhNDZhYzY5NGM4OWQzNGQxODA1IiwidXNlcl9pZCI6MX0.6qVb3c8of4yGffEcwfxyEsg67qa-dmgcvebK828UQYE
+      responses:
+        '200':
+          description: ''
+  /user:
+    get:
+      tags:
+        - User
+      summary: user_list
+      description: user_list
+      operationId: userList
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /user/:
+    post:
+      tags:
+        - User
+      summary: user_create
+      description: user_create
+      operationId: userCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  nullable: true
+                  example: null
+                dob:
+                  nullable: true
+                  example: null
+                email:
+                  type: string
+                  example: prakashsuthar1@yopmail.com
+                first_name:
+                  type: string
+                  example: 'prakash '
+                is_kyc:
+                  type: boolean
+                  example: false
+                last_name:
+                  type: string
+                  example: suthar
+                password:
+                  type: string
+                  example: demo@123
+                role:
+                  type: string
+                  example: bm
+                username:
+                  type: string
+                  example: prakashsuthar2
+            examples:
+              user_create:
+                value:
+                  address: null
+                  dob: null
+                  email: prakashsuthar1@yopmail.com
+                  first_name: 'prakash '
+                  is_kyc: false
+                  last_name: suthar
+                  password: demo@123
+                  role: bm
+                  username: prakashsuthar2
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    delete:
+      tags:
+        - User
+      summary: user_list Copy 2
+      description: user_list Copy 2
+      operationId: userListCopy2
+      responses:
+        '200':
+          description: ''
+  /user/1/:
+    put:
+      tags:
+        - User
+      summary: user_update
+      description: user_update
+      operationId: userUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  nullable: true
+                  example: null
+                dob:
+                  nullable: true
+                  example: null
+                email:
+                  type: string
+                  example: admin@mail.com
+                first_name:
+                  type: string
+                  example: admin
+                is_deleted:
+                  type: boolean
+                  example: false
+                is_kyc:
+                  type: boolean
+                  example: false
+                last_name:
+                  type: string
+                  example: kumar
+                password:
+                  type: string
+                  example: admin
+                username:
+                  type: string
+                  example: admin
+            examples:
+              user_update:
+                value:
+                  address: null
+                  dob: null
+                  email: admin@mail.com
+                  first_name: admin
+                  is_deleted: false
+                  is_kyc: false
+                  last_name: kumar
+                  password: admin
+                  username: admin
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /user/1/change-password/:
+    put:
+      tags:
+        - User
+      summary: user_changePassword
+      description: user_changePassword
+      operationId: userChangepassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  example: admin
+                new_password1:
+                  type: string
+                  example: admin2
+                new_password2:
+                  type: string
+                  example: admin2
+            examples:
+              user_changePassword:
+                value:
+                  current_password: admin
+                  new_password1: admin2
+                  new_password2: admin2
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /:
+    get:
+      tags:
+        - Accounts
+      summary: account_list
+      description: account_list
+      operationId: accountList
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: '4474001500000002'
+        - name: ordering
+          in: query
+          schema:
+            type: string
+            example: '-created_at'
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /3/transaction-history:
+    get:
+      tags:
+        - Accounts
+      summary: account_history
+      description: account_history
+      operationId: accountHistory
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+  /account/:
+    post:
+      tags:
+        - Accounts
+      summary: account_create
+      description: account_create
+      operationId: accountCreate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_holder:
+                  type: object
+                  properties:
+                    address:
+                      nullable: true
+                      example: null
+                    dob:
+                      nullable: true
+                      example: null
+                    email:
+                      type: string
+                      example: demo@yopmail.com
+                    first_name:
+                      type: string
+                      example: demo
+                    is_deleted:
+                      type: boolean
+                      example: false
+                    is_kyc:
+                      type: boolean
+                      example: false
+                    last_name:
+                      type: string
+                      example: kumar
+                    password:
+                      type: string
+                      example: demo@123
+                    username:
+                      type: string
+                      example: demo
+                initial_balance:
+                  type: number
+                  example: 100
+                type:
+                  type: string
+                  example: s
+            examples:
+              account_create:
+                value:
+                  account_holder:
+                    address: null
+                    dob: null
+                    email: demo@yopmail.com
+                    first_name: demo
+                    is_deleted: false
+                    is_kyc: false
+                    last_name: kumar
+                    password: demo@123
+                    username: demo
+                  initial_balance: 100
+                  type: s
+      responses:
+        '200':
+          description: ''
+  /transaction/:
+    get:
+      tags:
+        - Transaction
+      summary: transaction_list
+      description: transaction_list
+      operationId: transactionList
+      responses:
+        '200':
+          description: ''
+      security:
+        - bearerAuth: []
+    post:
+      tags:
+        - Transaction
+      summary: transaction_create
+      description: transaction_create
+      operationId: transactionCreate
+      requestBody:
+        content:
+          application/json:
+            examples:
+              transaction_create:
+                value: "\r\n{\r\n    \"t_account\": 3,\r\n    // \"transaction_id\": \"7466551598\",\r\n    \"type\": \"c\",\r\n    \"amount\": 100.0,\r\n    \"location\": \"Home Branch\"\r\n}"
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Login
+  - name: User
+  - name: Accounts
+  - name: Transaction
