@@ -8,6 +8,9 @@ def get_status(code):
     return "UNKNOWN"
 
 class CustomRenderer(JSONRenderer):
+
+    """ Custom Renderer to get custome response for API's """
+
     def render(self, data, accepted_media_type=None, renderer_context=None):
         response = renderer_context["response"]
         modified_response = {}

@@ -10,7 +10,7 @@ from .serializers import UserSerializer, LoginTokenObtainSerializer, PasswordCha
 from .models import User
 from base.pagination import CustomPagination
 from base.permissions import UserCreatePermission
-
+from base.throttles import CustomThrottleClass
 # Create your views here.
 
 
@@ -34,11 +34,11 @@ class UserViewset(ModelViewSet):
             self.serializer_class = actions.get(self.action)
         return super().get_serializer_class()
     
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if self.request.user.role == User.CUSTOMER:
-            queryset = queryset.filter(id=self.request.user.id, is_deleted=False)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     if self.request.user.role == User.CUSTOMER:
+    #         queryset = queryset.filter(id=self.request.user.id, is_deleted=False)
+    #     return queryset
     
     @action(
      methods=["PUT"], 
@@ -62,5 +62,10 @@ class LoginTokenGenerateView(TokenObtainPairView):
     """ login and generate JWT token"""
 
     serializer_class = LoginTokenObtainSerializer
-
+    # authentication_classes = [CustomAuthenticationBackend]
+    # throttle_classes = [CustomThrottleClass]
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["request"] = self.request
+        return context
     

@@ -21,9 +21,10 @@ class Command(BaseCommand):
     def create_super_user(self):
         admin_user = self.user_class.objects.filter(email="admin@mail.com")
         if admin_user.exists():
-            admin_user.is_staff = True
-            admin_user.is_superuser = True
-            admin_user.save()
+            admin_user.last().is_staff = True
+            admin_user.last().is_superuser = True
+            admin_user.last().role = "a"
+            admin_user.last().save()
             self.stdout.write(f"Admin account '{admin_user.last().email}' already exists")
             return False
         admin_user = self.user_class.objects.create(

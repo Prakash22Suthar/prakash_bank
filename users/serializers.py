@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
 
 from .models import User, AccountPassword
 from .utils import _authenticate, encode_password, check_password
@@ -8,7 +9,12 @@ from .utils import _authenticate, encode_password, check_password
 class LoginTokenObtainSerializer(TokenObtainPairSerializer):
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
         attrs["email"] = attrs.get("email").lower()
-        _authenticate(attrs.get("email"), attrs.get("password"))
+        # _authenticate(attrs.get("email"), attrs.get("password"))
+        email = attrs.get("email")
+        password=attrs.get("password")
+        request = self.context.get("request")
+        authenticate(request, email=email, password=password)
+
 
         data = super().validate(attrs)
         data["id"] = self.user.id

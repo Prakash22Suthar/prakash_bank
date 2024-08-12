@@ -56,6 +56,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE += [
+    "base.middleware.SQLPrintingMiddleware", # db query and time print middleware
+]
+
 ROOT_URLCONF = 'prakash_bank.urls'
 
 TEMPLATES = [
@@ -140,6 +144,11 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES":[
         "base.renderers.CustomRenderer",
     ],
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'login_customer': '5/day',
+    #     'login_staff': '7/day',
+    #     'login_branch_manager': '10/day'
+    # }
 }
 
 
@@ -160,3 +169,9 @@ SIMPLE_JWT = {
     # "SLIDING_TOKEN_LIFETIME": datetime.timedelta(days=1),
     # "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=1),
 }
+
+# custom authentication
+AUTHENTICATION_BACKENDS = [
+    'prakash_bank.backends.CustomAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
