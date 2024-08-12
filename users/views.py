@@ -34,11 +34,13 @@ class UserViewset(ModelViewSet):
             self.serializer_class = actions.get(self.action)
         return super().get_serializer_class()
     
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     if self.request.user.role == User.CUSTOMER:
-    #         queryset = queryset.filter(id=self.request.user.id, is_deleted=False)
-    #     return queryset
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.role == User.CUSTOMER:
+            queryset = queryset.filter(id=self.request.user.id, is_deleted=False)
+        if self.request.user.role == User.STAFF:
+            queryset = queryset.filter(role=User.STAFF, is_deleted=False)
+        return queryset
     
     @action(
      methods=["PUT"], 
