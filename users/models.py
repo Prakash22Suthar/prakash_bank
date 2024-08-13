@@ -39,6 +39,7 @@ class User(AbstractUser, BaseModel):
     kyc_id_number = models.CharField(max_length=20, null=True, blank=True)
     failed_attempts = models.PositiveIntegerField(default=0)
     is_locked = models.BooleanField(default=False)
+    mobile_number = models.PositiveIntegerField(default=0)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

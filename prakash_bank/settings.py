@@ -12,10 +12,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import datetime
+import environ
+import os
+import contextlib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+# Environment
+STAGE = env("STAGE")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,6 +33,9 @@ SECRET_KEY = 'django-insecure-__(*@zjm&-9vy+sr)w8qrw39b30ecg6zu2-a@*r#075@b8vyk5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG = False
+with contextlib.suppress(Exception):
+    DEBUG = STAGE == "local"
 
 ALLOWED_HOSTS = []
 
@@ -175,3 +186,9 @@ AUTHENTICATION_BACKENDS = [
     'prakash_bank.backends.CustomAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+
+# twilio 
+TWILIO_ACCOUNT_SID = env("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN")
+TWILIO_PHONE_NUMBER = env("TWILIO_PHONE_NUMBER")

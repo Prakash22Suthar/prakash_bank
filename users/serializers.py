@@ -3,8 +3,9 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 
+from prakash_bank.twilio_service import MessageServices
 from .models import User, AccountPassword
-from .utils import _authenticate, encode_password, check_password
+from .utils import _authenticate, encode_password, check_password, generate_password
 
 class LoginTokenObtainSerializer(TokenObtainPairSerializer):
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, str]:
@@ -61,11 +62,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
+                "id",
                 "first_name",
                 "last_name",
                 "username",
                 "email",
-                "password",
+                # "password",
                 "dob",
                 "role",
                 "address",
@@ -80,10 +82,18 @@ class UserSerializer(serializers.ModelSerializer):
         # }
 
     def create(self, validated_data):
-        password = validated_data.pop("password")
+        # password = validated_data.pop("password")
         user = User(**validated_data)
+        password = generate_password(6) # parameter passed for length of password
+        print('➡ System Generated password::::::::::::', password)
         user.set_password(password)
         user.save()
+
+        # # send welcome message with password
+        # account_holder_number = user.mobile_number
+        # message = f"Hi {user.full_name}, Welcome to be an customer of Prakash_Bank, \n this is your login password {password}"
+        # service = MessageServices()
+        # service.send_sms(account_holder_number, message)
 
         # save encoded password to account password table
         AccountPassword.objects.create(
